@@ -1,22 +1,20 @@
-FROM yekki/oraclelinux:latest
+FROM oraclelinux
 
-# Maintainer
-# ----------
 MAINTAINER Gary Niu <gary.niu@oracle.com>
 
-# Environment variables required for this build (do NOT change)
+#ENV http_proxy=http://10.188.60.183:80
 
-USER root
-RUN echo "root:welcome1" | chpasswd
-RUN yum -y groupinstall "X Window System"
-RUN yum -y install firefox
-RUN yum -y install mkfontscale
-RUN yum -y install mkfontdir
-RUN yum update -y; yum clean all
+RUN yum -y update \
+	&& yum -y groupinstall "X Window System" \
+	&& yum -y install firefox \
+	&& yum -y install mkfontscale \
+	&& yum -y install mkfontdir \
+	&& yum clean all
 
 RUN mkdir /usr/share/fonts/xpfonts
+
 COPY simfang.ttf /usr/share/fonts/xpfonts
-RUN mkfontscale
-RUN mkfontdir
+
+RUN mkfontscale && mkfontdir
 
 CMD ["/bin/bash"]

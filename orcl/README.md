@@ -1,8 +1,6 @@
-
-# Download latest server jre
-
-    curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u77-b03/server-jre-8u77-linux-x64.tar.gz > server-jre-8u77-linux-x64.tar.gz
-
 # Build image
 
-    docker build -t yekki/oracle-base:latest .
+    docker build --build-arg http_proxy=$http_proxy -t yekki/oracle-base:latest .
+
+add --env http_proxy=http://10.188.60.183:80(change to yours) if your host behind proxy and you don't wanna leave proxy setting in your container.
+
